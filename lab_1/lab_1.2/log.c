@@ -3,5 +3,5 @@
 
 float logarithm(int a)
 {
-    return log((float) a);
+    return log10(a);
 }
