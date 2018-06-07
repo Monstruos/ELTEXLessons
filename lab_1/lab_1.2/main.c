@@ -6,7 +6,7 @@
 #define ACTION_LENGTH 10
 enum ACTIVE_ACTION
 {
-    NO_ACTION,
+    NO_ACTION = 0,
     ADD_ACTION,
     SUB_ACTION,
     MUL_ACTION,
@@ -55,29 +55,31 @@ int main(int argc, char const *argv[])
 
     printf("\nCalculator(pre-alpha 0.0000000001b <Now with logarithm!>)\n");
     printf("Print first number (any number, if you want to calc logarithm):\n");
-    printf(">");
-    scanf("%i\n", &first_number);
+    scanf("%i", &first_number);
 
-    printf("Print action: ( + | - | * | / | log )\n");
-    printf(">");
-    scanf("%s\n", action);
+    printf("\nPrint action: ( + | - | * | / | log )\n");
+    scanf("%s", action);
     action_switch = set_active_action(action);
 
     printf("Print second number:\n");
-    printf(">");
-    scanf("%i\n", &second_number);
+    scanf("%i", &second_number);
 
     switch (action_switch) {
     case ADD_ACTION:
         result = add(first_number, second_number);
+        break;
     case SUB_ACTION:
         result = sub(first_number, second_number);
+        break;
     case MUL_ACTION:
         result = multi(first_number, second_number);
+        break;
     case DIV_ACTION:
         result = division(first_number, second_number);
+        break;
     case LOG_ACTION:
         result = logarithm(second_number);
+        break;
     case NO_ACTION:
         printf("Wrong action. Calculator has broken.\n");
         return 1;
