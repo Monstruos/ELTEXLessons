@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "pack.h"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[])
+{
     char str[10] = {'a', 0, 0, 0, 0,
                     'b', 0, 0, 0, 0};
     struct nonpack *np_ptr = (struct nonpack *)str;
