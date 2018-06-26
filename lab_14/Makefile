@@ -7,7 +7,7 @@ CALC_OBJ = $(CALC_SRC:.c=.o)
 SRC = main.c
 OBJ = $(SRC:.c=.o)
 LIB = calc
-RUN = lab_13.out
+RUN = lab_14.out
 
 .PHONY: all clean build run
 
