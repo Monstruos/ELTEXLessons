@@ -1,0 +1,32 @@
+#For running this makefile you should type:
+#make -f dynamic_makefile_so [commands]
+#
+#Commands:
+#Build: build
+#Compile: all
+#
+#Before running you should set LD_LIBRARY_PATH variable in your enviroment:
+#LD_LIBRARY_PATH=<full path to this directory> (export LD_LIBRARY_PATH=/...)
+CC = gcc
+CALC_SRC = add.c sub.c multi.c division.c
+CALC_OBJ = $(CALC_SRC:.c=.o)
+SRC = main.c
+OBJ = $(SRC:.c=.o)
+LIB = calc
+RUN = lab_15_so.out
+
+.PHONY: all clean build run calcso
+
+all: calcso $(SRC)
+	$(CC) $(SRC) -o $(RUN) -l$(LIB) -L.
+
+build: clean all
+
+clean:
+	rm -rf *.o *.so
+
+calcso: $(CALC_OBJ)
+	$(CC) -shared $(CALC_OBJ) -o lib$(LIB).so
+
+#$(OBJ): $(SRC)
+#	$(CC) -c $(SRC)

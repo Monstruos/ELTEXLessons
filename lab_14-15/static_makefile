@@ -1,6 +1,11 @@
-#Build: make build
-#Compile: make all
-#Run: make run
+#For running this makefile you should type:
+#make -f static_makefile [commands]
+#
+#Commands:
+#Build: build
+#Compile: all
+#Run: run
+
 CC = gcc
 CALC_SRC = add.c sub.c multi.c division.c
 CALC_OBJ = $(CALC_SRC:.c=.o)
