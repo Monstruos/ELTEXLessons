@@ -39,24 +39,34 @@ int show_cur_dir_with_chosen_file(struct FILE_MANAGER *fm)
 
 int chosen_is_dir(struct FILE_MANAGER *fm)
 {
-    char file_path[PATH_MAX];
-    strncpy(file_path, fm->dir_path, PATH_MAX);
-    strcat(file_path, "/");
-    strcat(file_path, fm->file_list[fm->file_list_ptr]->d_name);
-    if (!is_directory(file_path))
+    char *file_path = get_chosen_file_path(fm);
+    if (!is_directory(file_path)) {
+        free(file_path);
         return 0;
+    }
+    free(file_path);
+    return 1;
+}
+
+
+int chosen_is_exec(struct FILE_MANAGER *fm)
+{
+    char *file_path = get_chosen_file_path(fm);
+    if (!is_exec(file_path)) {
+        free(file_path);
+        return 0;
+    }
+    free(file_path);
     return 1;
 }
 
 
 int open_chosen_dir(struct FILE_MANAGER *fm)
 {
-    char file_path[PATH_MAX];
+    char *file_path = get_chosen_file_path(fm);
     char resolved_file_path[PATH_MAX];
-    strncpy(file_path, fm->dir_path, PATH_MAX);
-    strcat(file_path, "/");
-    strcat(file_path, fm->file_list[fm->file_list_ptr]->d_name);
     realpath(file_path, resolved_file_path);
+    free(file_path);
     return open_dir(fm, resolved_file_path);
 }
 
@@ -151,19 +161,27 @@ int fm_exec(struct FILE_MANAGER *fm)
                 set_file_ptr(fm, select_pos);
                 show_cur_dir_with_chosen_file(fm);
             } else {
-                WINDOW *te_win;
-                te_win = init_texteditor_full_window(fm->fm_window);
-                curs_set(TRUE);
-                char *file_path = get_chosen_file_path(fm);
-                open_file_in_editor(te_win, file_path);
-                run_texteditor(te_win);
-                curs_set(FALSE);
-                free(file_path);
-                del_texteditor_window(te_win, fm->fm_window);
-                refresh();
-                wrefresh(fm->parent);
-                wrefresh(fm->fm_window);
-                show_cur_dir_with_chosen_file(fm);
+                if (chosen_is_exec(fm)) {
+                    run_chosen_exec_file(fm);
+                    refresh();
+                    wrefresh(fm->parent);
+                    wrefresh(fm->fm_window);
+                    show_cur_dir_with_chosen_file(fm);
+                } else {
+                    WINDOW *te_win;
+                    te_win = init_texteditor_full_window(fm->fm_window);
+                    curs_set(TRUE);
+                    char *file_path = get_chosen_file_path(fm);
+                    open_file_in_editor(te_win, file_path);
+                    run_texteditor(te_win);
+                    curs_set(FALSE);
+                    free(file_path);
+                    del_texteditor_window(te_win, fm->fm_window);
+                    refresh();
+                    wrefresh(fm->parent);
+                    wrefresh(fm->fm_window);
+                    show_cur_dir_with_chosen_file(fm);
+                }
             }
             break;
         case 27:
@@ -188,10 +206,46 @@ int fm_exec(struct FILE_MANAGER *fm)
 }
 
 
+void run_chosen_exec_file(struct FILE_MANAGER *fm)
+{
+    char *file_path = get_chosen_file_path(fm);
+    pid_t exec_proc;
+    endwin();
+    exec_proc = fork();
+    switch (exec_proc) {
+    case 0:
+        execl(file_path,
+              fm->file_list[fm->file_list_ptr]->d_name,
+              (char *) NULL);
+        break;
+    case -1:
+        perror("fork");
+        exit(EXIT_FAILURE);
+        break;
+    default:
+        wait(NULL);
+        sleep(4);
+        break;
+    }
+    free(file_path);
+}
+
+
 int is_directory(const char *path)
 {
-   struct stat statbuf;
-   if (stat(path, &statbuf) != 0)
-       return 0;
-   return S_ISDIR(statbuf.st_mode);
+    struct stat statbuf;
+    if (stat(path, &statbuf) != 0)
+        return 0;
+    return S_ISDIR(statbuf.st_mode);
+}
+
+
+int is_exec(const char *path)
+{
+    struct stat statbuf;
+    if (stat(path, &statbuf) != 0)
+        return 0;
+    if (statbuf.st_mode & S_IXUSR)
+        return 1;
+    return 0;
 }
