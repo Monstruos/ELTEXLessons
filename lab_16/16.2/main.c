@@ -1,3 +1,8 @@
+// Данный редактор на правах владельца данного репозитория обьявляю устаревшим,
+// все обновления, исправления будут проводиться непосредственно в файловом
+// менеджере, в который данный редактор встроен.
+
+
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <signal.h>
@@ -10,17 +15,49 @@
 #include <ncurses.h>
 #include <limits.h>
 
+
+// Максимальный размер открываемого файла.
 #define MAX_SIZE_OF_TEXT 65536
+// Размеры окна запроса имени файла
 #define REQUEST_WINDOW_SIZE_X 75
 #define REQUEST_WINDOW_SIZE_Y 5
 
-
+// @init_texteditor_full_window: инициализация окна текстового редактора внутри
+// родительского окна;
+// note: содержимое родительского окна будет перезаписано;
+// parent: указатель на родительское окно.
 WINDOW *init_texteditor_full_window(WINDOW *parent);
+
+
+// @run_texteditor: запуск текстового редактора;
+// editor_win: указатель на окно текстового редактора.
 void run_texteditor(WINDOW *editor_win);
+
+
+// @find_and_open_file_in_editor: открывает окно запроса имени файла для
+// открытия и открывает его в редакторе;
+// editor_win: указатель на окно текстового редактора.
 void find_and_open_file_in_editor(WINDOW *editor_win);
+
+
+// @open_and_save_file_in_editor: открывает окно запроса имени файла для
+// сохранения. Если файл существует, он будет перезаписан, иначе будет создан
+// новый. Если по каким-то причинам создание файла невозможно, будет выведено
+// сообщение об ошибке;
+// editor_win: указатель на окно текстового редактора.
 void open_and_save_file_in_editor(WINDOW *editor_win);
+
+// @del_texteditor_window: удаление (закрытие) окна текстового редактора и
+// очищение окна родителя;
+// texteditor_window: указатель на окно текстового редактора;
+// parent: указатель на родительское окно.
 void del_texteditor_window(WINDOW *texteditor_window, WINDOW *parent);
 
+
+// @open_user_file: открытие окна запроса имени файла для открытия. Возвращает
+// дескриптор открываемого файла. Используется как вспомогательная функция
+// в функции find_and_open_file_in_editor;
+// parent: указатель на окно текстового редактора.
 int open_user_file(WINDOW *parent);
 
 int main(int argc, char const *argv[])

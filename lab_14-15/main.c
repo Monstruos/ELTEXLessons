@@ -3,7 +3,7 @@
 #include <string.h>
 #include "calc.h"
 
-
+// @clear_stdin_buffer: функция очистки буфера
 void clear_stdin_buffer()
 {
     char input;

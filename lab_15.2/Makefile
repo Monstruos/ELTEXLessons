@@ -1,5 +1,5 @@
 #For running this makefile you should type:
-#make -f dynamic_makefile_so [commands]
+#make [commands]
 #
 #Commands:
 #Build: build
@@ -23,9 +23,6 @@ build: clean all
 
 clean:
 	rm -rf *.o *.so
-
-$(OBJ): $(SRC)
-	$(CC) -c $(SRC)
 
 #$(OBJ): $(SRC)
 #	$(CC) -c $(SRC)

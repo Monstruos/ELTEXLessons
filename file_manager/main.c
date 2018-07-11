@@ -1,27 +1,5 @@
 #include "file_manager.h"
 
-#define MAX_SIZE_OF_TEXT 65536
-
-// int main(int argc, char const *argv[])
-// {
-//     WINDOW *fm_win, *par_fm_win;
-//     initscr();
-//     noecho();
-//     curs_set(FALSE);
-//     keypad(stdscr, true);
-//     par_fm_win = newwin(LINES, COLS / 2, 0, 0);
-//     refresh();
-//     fm_win = init_file_manager_full_window(par_fm_win);
-//     mousemask(0, NULL);
-//     int stat = open_dir("../../");
-//     if (stat != 0)
-//         return 1;
-//     fm_exec(fm_win, par_fm_win);
-//     del_file_manager_window(fm_win, stdscr);
-//     endwin();
-//     return 0;
-// }
-
 int main(int argc, char const *argv[])
 {
     WINDOW *par_fm_win_1, *par_fm_win_2;

@@ -66,6 +66,7 @@ void find_and_open_file_in_editor(WINDOW *editor_win)
     f_descr = open_user_file(editor_win);
     if(f_descr != -1) {
         read(f_descr, out_buffer, MAX_SIZE_OF_TEXT);
+        wclear(editor_win);
         wprintw(editor_win, out_buffer);
     }
     close(f_descr);
@@ -75,16 +76,19 @@ void find_and_open_file_in_editor(WINDOW *editor_win)
 }
 
 
-void open_file_in_editor(WINDOW *editor_win, char *file_path)
+void open_file_in_editor(WINDOW *editor_win, char *file_name)
 {
-    wclear(editor_win);
     char out_buffer[MAX_SIZE_OF_TEXT] = "";
-    int f_descr = 0;
-    if((f_descr = open(file_path, O_RDWR)) != -1) {
-        lseek(f_descr, 0, SEEK_SET);
+    int f_descr;
+    f_descr = open(file_name, O_RDWR);
+    if(f_descr != -1) {
         read(f_descr, out_buffer, MAX_SIZE_OF_TEXT);
+        wclear(editor_win);
         wprintw(editor_win, out_buffer);
     }
+    close(f_descr);
+    wmove(editor_win, 0, 0);
+    refresh();
     wrefresh(editor_win);
 }
 
