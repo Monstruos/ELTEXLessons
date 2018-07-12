@@ -12,6 +12,7 @@
 #include <ncurses.h>
 #include <limits.h>
 #include "text_editor.h"
+#include "load_win.h"
 
 
 // Коды выхода из окна файлового менеджера

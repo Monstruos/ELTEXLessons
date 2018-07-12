@@ -129,7 +129,8 @@ int fm_exec(struct FILE_MANAGER *fm)
 {
     int exec = 0;
     int select_pos = fm->file_list_ptr;
-
+    char *orig_file_path, *copy_file_path;
+    open_dir(fm, fm->dir_path);
     wattron(fm->parent, A_STANDOUT);
     box(fm->parent, '|', '-');
     mvwprintw(fm->parent, 0, 2, "FILE_MANAGER");
@@ -143,15 +144,11 @@ int fm_exec(struct FILE_MANAGER *fm)
             select_pos--;
             if (set_file_ptr(fm, select_pos) == 1)
                 select_pos++;
-            else
-                show_cur_dir_with_chosen_file(fm);
             break;
         case KEY_DOWN:
             select_pos++;
             if (set_file_ptr(fm, select_pos) == 1)
                 select_pos--;
-            else
-                show_cur_dir_with_chosen_file(fm);
             break;
         case KEY_RIGHT:
         case '\n':
@@ -159,14 +156,12 @@ int fm_exec(struct FILE_MANAGER *fm)
                 open_chosen_dir(fm);
                 select_pos = 0;
                 set_file_ptr(fm, select_pos);
-                show_cur_dir_with_chosen_file(fm);
             } else {
                 if (chosen_is_exec(fm)) {
                     run_chosen_exec_file(fm);
                     refresh();
                     wrefresh(fm->parent);
                     wrefresh(fm->fm_window);
-                    show_cur_dir_with_chosen_file(fm);
                 } else {
                     WINDOW *te_win;
                     te_win = init_texteditor_full_window(fm->fm_window);
@@ -180,7 +175,6 @@ int fm_exec(struct FILE_MANAGER *fm)
                     refresh();
                     wrefresh(fm->parent);
                     wrefresh(fm->fm_window);
-                    show_cur_dir_with_chosen_file(fm);
                 }
             }
             break;
@@ -190,9 +184,20 @@ int fm_exec(struct FILE_MANAGER *fm)
         case '\t':
             exec = SWITCH_CODE;
             break;
+        case 'c':
+        case 'C':
+            orig_file_path = get_chosen_file_path(fm);
+            copy_file_path = open_request_copy_file(fm->fm_window);
+            copy_file_with_status(fm->fm_window,
+                                  orig_file_path,
+                                  copy_file_path);
+            free(orig_file_path);
+            free(copy_file_path);
+            open_dir(fm, fm->dir_path);
         default:
             break;
         }
+        show_cur_dir_with_chosen_file(fm);
         refresh();
         wrefresh(fm->parent);
         wrefresh(fm->fm_window);
