@@ -1,3 +1,7 @@
+#ifndef __FILE_MANAGER__H
+#define __FILE_MANAGER__H
+
+
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <signal.h>
@@ -129,3 +133,6 @@ int is_directory(const char *path);
 // chosen_is_exec().
 // path: имя (путь до) файла.
 int is_exec(const char *path);
+
+
+#endif // __FILE_MANAGER__H

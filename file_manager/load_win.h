@@ -1,3 +1,7 @@
+#ifndef __LOAD_WIN__H
+#define __LOAD_WIN__H
+
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -60,3 +64,6 @@ void copy_file_with_status(WINDOW *init_window,
 // init_window: родительское окно, на основе размеров которого будет построено
 // окно запроса. После окончания ввода будет очищено.
 char *open_request_copy_file(WINDOW *init_window);
+
+
+#endif // __LOAD_WIN__H

@@ -1,3 +1,8 @@
+#ifndef __TEXT_EDITOR__H
+#define __TEXT_EDITOR__H
+
+
+
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <signal.h>
@@ -61,3 +66,6 @@ void del_texteditor_window(WINDOW *texteditor_window, WINDOW *parent);
 // parent: указатель на окно текстового редактора. По нему окно запроса
 // определяет свои размеры.
 int open_user_file(WINDOW *parent);
+
+
+#endif // __TEXT_EDITOR__H
