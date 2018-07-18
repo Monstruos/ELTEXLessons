@@ -1,4 +1,4 @@
-// Чат на разделяемой памяти
+// Чат на разделяемой памяти. Запуск: ./program <nickname>
 
 #include <stdlib.h>
 #include <stdio.h>

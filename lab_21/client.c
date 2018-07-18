@@ -1,3 +1,5 @@
+// Клиент чата на очередях сообщений. Запуск: ./program <nickname>
+
 #include <pthread.h>
 #include "msgchat.h"
 
