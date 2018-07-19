@@ -51,8 +51,8 @@ void send_mess(int msg_id, char *mess)
 }
 
 
-@thread_rcv_func: поточная функция приема сообщений;
-args: аргументы поточной функции (передается идентификатор )
+// @thread_rcv_func: поточная функция приема сообщений;
+// args: аргументы поточной функции (передается идентификатор)
 void *thread_rcv_func(void *args)
 {
     struct msgbuf rcv_mess;
@@ -85,7 +85,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_SUCCESS);
     }
     CLIENT_NAME = argv[1];
-    key_t key = ftok("./msg_buf.buffer", 'B');
+    key_t key = ftok("./Makefile", 'B');
     int mesq_id = msgget(key, 0);
     if (mesq_id < 0) {
         perror("Key is not created");

@@ -83,7 +83,7 @@ void chat_server(int q_id)
 
 int main(int argc, char const *argv[])
 {
-    key_t key = ftok("./msg_buf.buffer", 'B');
+    key_t key = ftok("./Makefile", 'B');
     // Изначально чат пуст
     for (int i = 0; i < CLIENT_COUNT; ++i)
         USER_STATUS[i] = 0;
