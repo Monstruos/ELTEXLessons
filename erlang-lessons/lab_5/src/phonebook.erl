@@ -13,7 +13,7 @@ get_records_from_phone_book(Filename) ->
             TupleRecords = drop_last(set_records(BinRecords)),
             set_maps(TupleRecords);
         {error, Err} ->
-            io:fwrite("Error: ~p", [Err])
+            io:format("Error: ~p", [Err])
     end.
 
 
