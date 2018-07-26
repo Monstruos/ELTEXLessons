@@ -5,8 +5,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
-#include <netdb.h>
 #include <string.h>
 // В данном заголовочном файле находится порт и размер буфера
 #include "udp_server_client.h"
@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
     // Заполнение структуры, описывающей сервер
     memset(&inet_server_sock, 0, sizeof(struct sockaddr_in));
     inet_server_sock.sin_family = AF_INET;
-    inet_server_sock.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    inet_server_sock.sin_addr.s_addr = inet_addr("127.0.0.1");
     inet_server_sock.sin_port = htons(PORT);
 
 

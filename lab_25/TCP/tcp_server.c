@@ -8,7 +8,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <netdb.h>
 #include <string.h>
 // В данном заголовочном файле находится порт и размер буфера
 #include "tcp_server_client.h"
@@ -52,7 +51,6 @@ int main(int argc, char const *argv[])
             perror("accept()");
             exit(EXIT_FAILURE);
         }
-        printf("Receive: ");
         int sub_proc = fork();
         if (sub_proc == 0) {
             // Принятие сообщения от клиента
@@ -60,7 +58,7 @@ int main(int argc, char const *argv[])
                 perror("recv() error");
                 exit(EXIT_FAILURE);
             }
-            printf("%s\n", buffer);
+            printf("Receive: %s\n", buffer);
             strcat(buffer, ", client!");
             printf("Send: %s\n", buffer);
             // Отправка сообщения клиенту
