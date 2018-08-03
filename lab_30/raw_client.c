@@ -108,7 +108,7 @@ int main(int argc, char const *argv[])
 
     // Принятие пакетов до тех пор, пока не придет пакет, принадлежащий нам
     do {
-        memset(&input, 0, PACKET_SIZE);
+        memset(input, 0, PACKET_SIZE);
         // Принятие сообщения от сервера
         if (recvfrom(sock, input, PACKET_SIZE,
             0, NULL, NULL) == -1) {
