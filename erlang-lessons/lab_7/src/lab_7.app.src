@@ -1,0 +1,16 @@
+{application, lab_7,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {modules, [vk_handshakes]},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  crypto,
+                  ssl,
+                  jiffy
+                 ]},
+  {mod, { lab_7_app, []}},
+  {env, []}
+ ]}.
