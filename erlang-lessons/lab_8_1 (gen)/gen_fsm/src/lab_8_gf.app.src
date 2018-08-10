@@ -1,0 +1,12 @@
+{application, lab_8_gf,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { lab_8_gf_app, []}},
+  {env, []}
+ ]}.
