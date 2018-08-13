@@ -1,0 +1,6 @@
+[
+{ "file"      : "c_src/nif_test.c"
+, "directory" : "/home/monstruos/Github/ELTEXlessons/erlang-lessons/lab_8_2 (int)"
+, "command"   : "cc -c -g -Wall -fPIC -MMD -I\"/usr/lib/erlang/lib/erl_interface-3.8.2/include\" -I\"/usr/lib/erlang/erts-7.3/include\" c_src/nif_test.c -o c_src/nif_test.o"
+}
+]
