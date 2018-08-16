@@ -1,0 +1,14 @@
+{application, tester,
+ [
+  {description, "An Erlang tester library"},
+  {vsn, "1"},
+  {modules, [
+             tester
+            ]},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
