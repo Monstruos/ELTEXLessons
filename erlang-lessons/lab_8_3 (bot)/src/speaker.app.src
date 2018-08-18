@@ -1,0 +1,15 @@
+{application, speaker,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  crypto,
+                  ssl,
+                  inets
+                 ]},
+  {mod, { speaker_app, []}},
+  {env, []}
+ ]}.
