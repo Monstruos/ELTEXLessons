@@ -1,0 +1,12 @@
+{application, sip_test,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { sip_test_app, []}},
+  {env, []}
+ ]}.

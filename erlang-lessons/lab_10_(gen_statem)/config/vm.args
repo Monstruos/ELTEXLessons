@@ -1,0 +1,8 @@
+# Name of the node
+-sname vkapp
+
+# Cookie for distributed erlang
+-setcookie Titiqaqa
+
+# Start only on last core
++sct L3c3
